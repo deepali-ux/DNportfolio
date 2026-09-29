@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepali Nagarsekar | Product Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // Dark Desaturated Palette
+                        darkBg: '#121417',
+                        darkPanel: '#1A1D24',
+                        darkBorder: '#2D323F'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .figma-grid {
+            background-size: 30px 30px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        .zoom-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .zoom-card:hover { transform: translateY(-4px) scale(1.01); }
+        
+        /* Custom Dark Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #121417; }
+        ::-webkit-scrollbar-thumb { background: #2D323F; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9333EA; }
+    </style>
+</head>
+<body class="bg-darkBg text-slate-200 font-sans antialiased selection:bg-purple-900/40 selection:text-purple-200">
+
+    <!-- GLOBAL LIGHTBOX MODAL FOR IMAGE ZOOM -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col items-center justify-center p-4" onclick="closeZoom()">
+        <button class="absolute top-6 right-6 text-white text-xs font-mono bg-white/10 px-3 py-1.5 rounded border border-white/20 hover:bg-white/20 transition-all">✕ Close Canvas View</button>
+        <div class="max-w-5xl max-h-[85vh] bg-darkPanel p-4 rounded-xl border border-darkBorder shadow-2xl overflow-auto" onclick="event.stopPropagation()">
+            <div id="lightbox-content" class="w-full flex justify-center items-center">
+                <!-- Dynamic Content Injected via JS -->
+            </div>
+        </div>
+        <p class="text-slate-400 text-xs mt-3 font-mono">Click anywhere outside the frame to return to layout canvas</p>
+    </div>
+
+    <!-- TOP CONTROL HEADER -->
+    <header class="fixed top-0 left-0 w-full h-14 bg-darkPanel border-b border-darkBorder flex items-center justify-between px-4 z-40 select-none">
+        <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-1.5 bg-purple-950/60 px-2.5 py-1 rounded-md border border-purple-900/50">
+                <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                <span class="text-[11px] font-mono font-bold tracking-wide text-purple-300">DEEPALI NAGARSEKAR</span>
+            </div>
+            <span class="text-xs font-semibold text-slate-600 hidden sm:inline">/</span>
+            <span class="text-xs font-medium text-slate-300 hidden sm:inline">Senior Product Designer & UX Strategist</span>
+        </div>
+        
+        <div class="flex items-center space-x-3">
+            <a href="https://linkedin.com" target="_blank" class="text-xs font-medium text-blue-400 hover:text-blue-300 border border-darkBorder px-3 py-2 rounded-lg transition-all hidden md:block">LinkedIn ↗</a>
+            <a href="https://www.behance.net/gallery/222540225/Portfolio" target="_blank" class="text-xs font-medium text-slate-400 hover:text-purple-400 border border-darkBorder px-3 py-2 rounded-lg transition-all hidden md:block">Behance Archive ↗</a>
+            <a href="tel:9421117629" class="bg-white text-slate-900 text-xs font-bold px-4 py-2 rounded-lg hover:bg-slate-200 transition-all shadow-sm">Contact: +91 9421117629</a>
+        </div>
+    </header>
+
+    <!-- LEFT SIDEBAR: INTERACTIVE LAYERS & NAVIGATION (ALL ITEMS LEFT-ALIGNED) -->
+    <aside class="fixed top-14 left-0 w-64 bottom-0 bg-darkPanel border-r border-darkBorder pt-6 select-none z-30 hidden md:block overflow-y-auto">
+        <div class="px-4 text-[10px] font-bold tracking-widest text-slate-500 uppercase mb-3 text-left">Pages / Viewports</div>
+        
+        <nav class="space-y-0.5 px-2 text-left">
+            <button onclick="switchView('home-view')" id="btn-home-view" class="nav-btn w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-purple-400 bg-purple-950/40 border border-purple-900/40 transition-all text-left">
+                <svg class="w-3.5 h-3.5 text-purple-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <span class="text-left">About Me</span>
+            </button>
+
+            <div class="pt-4 pb-1 px-3 text-[10px] font-bold tracking-widest text-slate-500 uppercase text-left">Featured Work & Case Studies</div>
+            
+            <div class="space-y-0.5">
+                <!-- TERRA VISION CASE STUDY NAV BUTTON -->
+                <button onclick="switchView('cs-habitat')" id="btn-cs-habitat" class="nav-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all text-left">
+                    <div class="flex items-center space-x-2 text-left">
+                        <span class="w-3.5 text-left text-blue-400 font-mono shrink-0">0.</span>
+                        <span class="font-bold text-slate-200 text-left">Terra Vision (Habitat)</span>
+                    </div>
+                    <span class="text-[9px] bg-purple-950 text-purple-300 border border-purple-800 px-1.5 py-0.5 rounded font-mono shrink-0">🤖 AI</span>
+                </button>
+                <button onclick="switchView('cs-bin')" id="btn-cs-bin" class="nav-btn w-full flex items-start space-x-2.5 px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all text-left">
+                    <span class="w-3.5 text-left text-purple-400 font-mono shrink-0">1.</span>
+                    <span class="text-left">Procurement Bin System</span>
+                </button>
+                <button onclick="switchView('cs-acs')" id="btn-cs-acs" class="nav-btn w-full flex items-start space-x-2.5 px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all text-left">
+                    <span class="w-3.5 text-left text-emerald-400 font-mono shrink-0">2.</span>
+                    <span class="text-left">Automated Customer Support</span>
+                </button>
+                <button onclick="switchView('cs-wishlist')" id="btn-cs-wishlist" class="nav-btn w-full flex items-start space-x-2.5 px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all text-left">
+                    <span class="w-3.5 text-left text-amber-400 font-mono shrink-0">3.</span>
+                    <span class="text-left">E-commerce Wishlist Strategy</span>
+                </button>
+                <a href="https://www.behance.net/gallery/189293607/AI-ML-UX-Recommendation-Pitch-for-Product-listing" target="_blank" class="nav-btn w-full flex items-start space-x-2.5 px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all text-left">
+                    <span class="w-3.5 text-left text-cyan-400 font-mono shrink-0">4.</span>
+                    <span class="text-left">AI/ML Product Suggestions Pitch</span>
+                </a>
+            </div>
+
+            <div class="pt-4 pb-1 px-3 text-[10px] font-bold tracking-widest text-slate-500 uppercase text-left">Profile Details</div>
+            <button onclick="switchView('experience-view')" id="btn-experience-view" class="nav-btn w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all text-left">
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <span class="text-left">Experience Matrix</span>
+            </button>
+            <button onclick="switchView('contact-view')" id="btn-contact-view" class="nav-btn w-full flex items-center space-x-2.5 px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all text-left">
+                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"/></svg>
+                <span class="text-left">Contact Channels</span>
+            </button>
+        </nav>
+    </aside>
+
+    <!-- MAIN CANVAS REGION -->
+    <main class="pt-14 pl-0 md:pl-64 min-h-screen w-full relative figma-grid pb-24">
+
+        <!-- ================= ABOUT ME VIEW (HOME SCREEN) ================= -->
+        <div id="home-view" class="canvas-panel p-4 md:p-12 block max-w-5xl mx-auto">
+            <div class="bg-darkPanel rounded-2xl border border-darkBorder p-6 md:p-10 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 bg-purple-600 text-white font-mono text-[9px] px-2.5 py-1 font-bold uppercase tracking-wider">Frame: Hero_Workspace</div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-4">
+                    <div class="lg:col-span-8 space-y-6">
+                        <span class="inline-block bg-purple-950/60 border border-purple-800/50 text-purple-300 text-xs font-bold font-mono px-3 py-1 rounded-md uppercase tracking-wide">6+ Years Experience • Available for High-Impact Roles</span>
+                        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight text-white">
+                            Hi, I'm Deepali Nagarsekar. <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-300">Product Designer</span> transforming absolute complexity into clean layout realities.
+                        </h1>
+                        <p class="text-slate-400 text-sm leading-relaxed max-w-2xl">
+                            Experienced Product Designer with over 6 years specializing in enhancing enterprise operations, spatial property UX, and data-driven systems. I thrive on blending user research with technical know-how to build intuitive, high-efficiency digital solutions.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button onclick="switchView('cs-habitat')" class="bg-blue-600 text-white text-xs font-bold px-5 py-3 rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/20 flex items-center gap-2">
+                                <span>Inspect Terra Vision (Habitat)</span>
+                                <span>➔</span>
+                            </button>
+                            <button onclick="switchView('cs-bin')" class="bg-purple-600 text-white text-xs font-bold px-5 py-3 rounded-xl hover:bg-purple-500 transition-all shadow-sm">View Procurement Case Study</button>
+                        </div>
+                    </div>
+                    
+                    <!-- USER PROFILE FRAME -->
+                    <div class="lg:col-span-4 flex justify-center">
+                        <div class="w-56 h-auto bg-slate-800/80 rounded-2xl p-4 border-2 border-dashed border-slate-600 flex flex-col items-center justify-center text-center relative group">
+                            <img src="image_8cb5e1.jpg" alt="Deepali Nagarsekar" class="w-24 h-24 rounded-full object-cover shadow-inner mb-3 border border-purple-500/30">
+                            <span class="text-xs font-bold text-slate-200">Deepali Nagarsekar</span>
+                            <span class="text-[10px] text-slate-400 font-mono mt-1">Senior Product Designer</span>
+                            <div class="absolute -bottom-2 bg-white text-slate-900 text-[10px] font-mono px-2 py-0.5 rounded shadow font-bold">Scale: 100%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK METRIC DASHBOARD -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-12 pt-8 border-t border-darkBorder">
+                    <div class="bg-emerald-950/30 border border-emerald-900/40 p-4 rounded-xl">
+                        <span class="block text-2xl font-black text-emerald-400 font-mono">+15%</span>
+                        <span class="text-xs text-slate-400 font-medium">First Contact Resolution Lift</span>
+                    </div>
+                    <div class="bg-purple-950/30 border border-purple-900/40 p-4 rounded-xl">
+                        <span class="block text-2xl font-black text-purple-400 font-mono">20 - 40%</span>
+                        <span class="text-xs text-slate-400 font-medium">Task Completion Time Reduction</span>
+                    </div>
+                    <div class="bg-blue-950/30 border border-blue-900/40 p-4 rounded-xl col-span-2 md:col-span-1">
+                        <span class="block text-2xl font-black text-blue-400 font-mono">35 - 40%</span>
+                        <span class="text-xs text-slate-400 font-medium">Warehouse Worker Effort Optimization</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CASE STUDY 0: TERRA VISION (HABITAT) ================= -->
+        <div id="cs-habitat" class="canvas-panel p-4 md:p-12 hidden max-w-5xl mx-auto">
+            <div class="bg-darkPanel rounded-2xl border border-darkBorder p-6 md:p-10 shadow-2xl relative">
+                
+                <!-- STATUS TAGS HEADER WITH AI TAG INSIDE -->
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-darkBorder pb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono font-bold px-2.5 py-1 rounded-md uppercase tracking-wider flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+                            <span>Ongoing Project</span>
+                        </span>
+                        <span class="bg-blue-500/20 text-blue-300 border border-blue-500/40 text-[10px] font-mono font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">In-Progress</span>
+                    </div>
+                    
+                    <!-- AI TAG INSIDE CASE STUDY -->
+                    <div class="bg-purple-950/80 border border-purple-800/60 text-purple-300 text-[10px] font-mono px-3 py-1.5 rounded-md flex items-center gap-2 font-bold shadow-sm">
+                        <span>🤖</span>
+                        <span>Co-designed with AI</span>
+                    </div>
+                </div>
+
+                <div class="pt-6 space-y-10">
+                    
+                    <!-- TITLE & EXECUTIVE SUMMARY -->
+                    <div>
+                        <div class="text-xs font-mono text-blue-400 uppercase font-bold tracking-widest mb-1">Spatial UX / PropTech Innovation Case Study</div>
+                        <h1 class="text-3xl md:text-5xl font-black text-white leading-tight">Terra Vision (Habitat)</h1>
+                        <p class="text-slate-400 text-sm md:text-base mt-3 leading-relaxed">
+                            A spatial-first property and stay discovery engine designed to let renters and buyers search, virtually explore, compare, and act on a home and its surrounding neighborhood before ever stepping foot outside.
+                        </p>
+                    </div>
+
+                    <!-- ORIGIN STORY / INITIAL SPARK -->
+                    <div class="bg-gradient-to-r from-blue-950/40 via-indigo-950/20 to-darkBg border border-blue-900/50 rounded-xl p-6 relative overflow-hidden">
+                        <h3 class="text-xs font-bold text-blue-400 font-mono uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <span>💡</span> The Initial Spark (Origin Story)
+                        </h3>
+                        <blockquote class="text-xs md:text-sm text-slate-300 italic leading-relaxed">
+                            "While sitting on the terrace and attending a call with my parents, there was a brief moment where Mom casually said: <strong class="text-white">‘Why don't you start looking for a flat?’</strong><br><br>
+                            That single sentence was the initial spark. We turned around, spotted a few nice buildings in the skyline, and immediately started discussing: <em>‘How about checking that flat over there?’</em> But right then, we realized how hard it was to know if any flats were actually available in those visible buildings, or if they were even within our budget. Our creative minds instantly switched from a casual parent conversation to solving a massive user problem — and that became the foundation of project Terra Vision."
+                        </blockquote>
+                    </div>
+
+                    <!-- DUAL ROLE & PM BREAKDOWN -->
+                    <div class="bg-darkBg/90 border border-darkBorder rounded-xl p-6 space-y-4">
+                        <h3 class="text-xs font-bold text-blue-400 font-mono uppercase tracking-widest border-b border-darkBorder pb-2">
+                            📌 My Dual Strategic Role: Senior Product Designer + Project Manager
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                            <div class="space-y-2">
+                                <span class="font-bold text-white block font-mono">As Product Designer:</span>
+                                <ul class="text-slate-400 space-y-1.5 list-disc list-inside">
+                                    <li>Architected spatial-first framework unifying 360° panoramas with Google Maps context.</li>
+                                    <li>Crafted side-by-side comparative decision workspace to eliminate fragmented tools.</li>
+                                    <li>Designed high-fidelity screen UI, navigation structures, and interactive prototypes.</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-2">
+                                <span class="font-bold text-white block font-mono">As Project Manager (Execution):</span>
+                                <ul class="text-slate-400 space-y-1.5 list-disc list-inside">
+                                    <li>Scoped product requirements across Phase 1 (MVP), Phase 2, and Phase 3 roadmap.</li>
+                                    <li>Defined capability-based competitive feature matrices to isolate differentiators.</li>
+                                    <li>Orchestrated AI-assisted design workflow to accelerate research and system modeling.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FIGMA PROTOTYPE LINK CALLOUT -->
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+                        <div>
+                            <span class="text-[10px] font-mono uppercase font-bold bg-white/20 px-2 py-0.5 rounded">Interactive Figma Prototype</span>
+                            <h4 class="text-lg font-bold mt-1">Experience Terra Vision in Action</h4>
+                            <p class="text-xs text-blue-100 mt-1">Click below to test the interactive prototype node live in Figma.</p>
+                        </div>
+                        <a href="https://www.figma.com/proto/efjXR8Onf2LmfiBNHqlna4/Case-studies?node-id=41-381&t=ftnbBHai8nr9qPfX-9&scaling=min-zoom&content-scaling=fixed&page-id=6%3A2&starting-point-node-id=41%3A381&show-proto-sidebar=1" target="_blank" class="bg-white hover:bg-slate-100 text-blue-900 font-mono text-xs font-bold px-6 py-3 rounded-lg transition-all shrink-0 shadow-md">
+                            Launch Figma Prototype ↗
+                        </a>
+                    </div>
+
+                    <!-- ARTIFACT 1: UI SHOWCASE SCREEN GALLERY -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-darkBorder pb-2">
+                            <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">1. High-Fidelity App UI Showcase</h3>
+                            <span class="text-xs font-mono text-blue-400">[Click image to inspect]</span>
+                        </div>
+                        <div class="bg-darkBg border border-darkBorder p-4 rounded-xl cursor-pointer hover:border-blue-500 transition-all group" onclick="openImageZoom('terra-vision-showcase.jpg', 'Figure 1.1: Mobile screens highlighting Map Search, 360° VR Viewport, Neighborhood Context & Visit Scheduling.')">
+                            <img src="terra-vision-showcase.jpg" alt="Terra Vision UI Showcase" class="w-full rounded-lg object-cover shadow-lg group-hover:opacity-90 transition-opacity">
+                            <p class="text-center text-[11px] font-mono text-slate-500 mt-3">Figure 1.1: Mobile screens highlighting Map Search, 360° VR Viewport, Neighborhood Context & Visit Scheduling.</p>
+                        </div>
+                    </div>
+
+                    <!-- ARTIFACT 2: COMPETITIVE ANALYSIS CHART -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-darkBorder pb-2">
+                            <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">2. Discovery Artifact: Competitive Capability Matrix</h3>
+                            <span class="text-xs font-mono text-blue-400">[Click image to inspect]</span>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Evaluating current platform offerings across market competitors to identify critical spatial and neighborhood navigation gaps:
+                        </p>
+                        <div class="bg-darkBg border border-darkBorder p-4 rounded-xl cursor-pointer hover:border-blue-500 transition-all group" onclick="openImageZoom('competitive-analysis.jpg', 'Figure 2.1: Feature parity & differentiation analysis across Indian rental and global property platforms.')">
+                            <img src="competitive-analysis.jpg" alt="Competitive Analysis Chart" class="w-full rounded-lg object-cover shadow-lg group-hover:opacity-90 transition-opacity">
+                            <p class="text-center text-[11px] font-mono text-slate-500 mt-3">Figure 2.1: Feature parity & differentiation analysis across Indian rental and global property platforms.</p>
+                        </div>
+                    </div>
+
+                    <!-- ARTIFACT 3: PERSONAS -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-darkBorder pb-2">
+                            <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">3. Target Personas & User Scenarios</h3>
+                            <span class="text-xs font-mono text-blue-400">[Click image to inspect]</span>
+                        </div>
+                        <div class="bg-darkBg border border-darkBorder p-4 rounded-xl cursor-pointer hover:border-blue-500 transition-all group" onclick="openImageZoom('persona.jpg', 'Figure 3.1: Persona profiles mapping user scenarios, needs, and priority indices for The Relocator, Local Optimizer, and Flexible Stayer.')">
+                            <img src="persona.jpg" alt="Target Personas Chart" class="w-full rounded-lg object-cover shadow-lg group-hover:opacity-90 transition-opacity">
+                            <p class="text-center text-[11px] font-mono text-slate-500 mt-3">Figure 3.1: Persona profiles mapping user scenarios, needs, and priority indices for The Relocator, Local Optimizer, and Flexible Stayer.</p>
+                        </div>
+                    </div>
+
+                    <!-- ARTIFACT 4: USER JOURNEY MAP -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-darkBorder pb-2">
+                            <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">4. End-to-End User Journey Map</h3>
+                            <span class="text-xs font-mono text-blue-400">[Click image to inspect]</span>
+                        </div>
+                        <div class="bg-darkBg border border-darkBorder p-4 rounded-xl cursor-pointer hover:border-blue-500 transition-all group" onclick="openImageZoom('user-journey-map.jpg', 'Figure 4.1: Customer emotion curve and stage-by-stage opportunity mapping for Terra Vision Property Search.')">
+                            <img src="user-journey-map.jpg" alt="User Journey Map" class="w-full rounded-lg object-cover shadow-lg group-hover:opacity-90 transition-opacity">
+                            <p class="text-center text-[11px] font-mono text-slate-500 mt-3">Figure 4.1: Customer emotion curve and stage-by-stage opportunity mapping for Terra Vision Property Search.</p>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 5: CORE PRODUCT LOOPS -->
+                    <div class="space-y-4">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider border-b border-darkBorder pb-2">5. Core Product Loop & Architecture</h3>
+                        <div class="bg-darkBg p-6 rounded-xl border border-darkBorder font-mono text-xs">
+                            <div class="flex flex-wrap items-center justify-center gap-2 text-center text-slate-300">
+                                <span class="bg-blue-950/80 border border-blue-800 text-blue-300 px-3 py-1.5 rounded font-bold">SEARCH</span>
+                                <span>➔</span>
+                                <span class="bg-blue-950/80 border border-blue-800 text-blue-300 px-3 py-1.5 rounded font-bold">MAP DISCOVERY</span>
+                                <span>➔</span>
+                                <span class="bg-purple-950/80 border border-purple-800 text-purple-300 px-3 py-1.5 rounded font-bold">360° INTERIOR TOUR</span>
+                                <span>➔</span>
+                                <span class="bg-indigo-950/80 border border-indigo-800 text-indigo-300 px-3 py-1.5 rounded font-bold">STREET VIEW & COMMUTE</span>
+                                <span>➔</span>
+                                <span class="bg-emerald-950/80 border border-emerald-800 text-emerald-300 px-3 py-1.5 rounded font-bold">COMPARE & ACT</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CASE STUDY 1: PROCUREMENT & SMART BIN MANAGEMENT SYSTEM (EXACT REPLACEMENT) ================= -->
+        <div id="cs-bin" class="canvas-panel p-4 md:p-12 hidden max-w-5xl mx-auto">
+            <div class="bg-darkPanel rounded-2xl border border-darkBorder p-6 md:p-10 shadow-sm relative space-y-12">
+                <div class="absolute top-0 left-0 bg-purple-600 text-white font-mono text-[9px] px-2.5 py-1 font-bold uppercase tracking-wider">Layer: Smart_Bin_System</div>
+                
+                <!-- HEADER / TITLE -->
+                <div class="pt-4 border-b border-darkBorder pb-6">
+                    <span class="text-xs font-mono text-purple-400 uppercase font-bold tracking-widest block mb-1">Case Study 01</span>
+                    <h1 class="text-3xl md:text-4xl font-black text-white">Procurement & Smart Bin Management System</h1>
+                </div>
+
+                <!-- 01 — BACKGROUND -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-purple-400 font-mono">01 — Background</h2>
+                    
+                    <div class="space-y-3 text-slate-300 text-xs md:text-sm leading-relaxed">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">The problem space</h3>
+                        <p>
+                            Grassdoor operates large-scale cannabis distribution warehouses — 30,000 sq ft facilities with 30+ racks, hundreds of bins, and thousands of SKUs moving in and out daily. The operations team — pickers, general managers, and inventory specialists — were managing all of this across a patchwork of Google Sheets, an internal portal, and manual physical checks. There was no single source of truth.
+                        </p>
+                        <p>
+                            I was brought in as the UX lead (with product ownership) to design the Bin Management module within the internal Warehouse Portal — covering how products are stored after receiving, retrieved for order packing, audited for accuracy, and transferred between facilities.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3 text-slate-300 text-xs md:text-sm leading-relaxed pt-2">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">The as-is reality</h3>
+                        <p>
+                            Pickers toggled between 3–5 tabs simultaneously: the warehouse portal for order data, Google Sheets for bin locations, separate spreadsheets for QC tracking, and manual physical checks to confirm stock.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3 text-slate-300 text-xs md:text-sm leading-relaxed pt-2">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">What we set out to do</h3>
+                        <p>
+                            Design one unified flow where the system tells the picker exactly where to go, what to scan, and flags any discrepancies in real time — eliminating the spreadsheet dependency entirely.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 02 — DISCOVERY -->
+                <div class="space-y-6 border-t border-darkBorder pt-8">
+                    <h2 class="text-xl font-bold text-purple-400 font-mono">02 — Discovery</h2>
+                    
+                    <div class="space-y-3 text-slate-300 text-xs md:text-sm leading-relaxed">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Understanding the real workflow</h3>
+                        <p>
+                            Before sketching a single screen, I ran a remote moderated research session (1 hour) with 5 end-user representatives across the LA and SF facilities — general managers, operation specialists, and inventory pickers. The goal was to observe the current-state workflow in action, not just hear about it.
+                        </p>
+                        
+                        <blockquote class="bg-darkBg border-l-4 border-purple-500 p-4 italic text-slate-200 rounded-r-lg my-4">
+                            "Since we have to manage the portal as well as the spreadsheet, we need to use split screen — if it was just one platform, a tablet or mobile would have been really easy to work with."
+                            <footer class="text-xs text-purple-400 font-mono not-italic mt-2">— Warehouse General Manager, LA facility</footer>
+                        </blockquote>
+
+                        <p>
+                            Participants included Anakin Hambrink (General Manager, 4 years experience), Gabriella Legarreta (Operations Specialist), Samantha Pelayo, Jose Maldonado, Kayla Gonzalez, and Philip — representing both LA and SF facilities. This cross-facility coverage was important because each location has different aisle counts, layouts, and batch structures.
+                        </p>
+                    </div>
+
+                    <!-- KEY RESEARCH FINDINGS GRID -->
+                    <div class="space-y-3 pt-2">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Key research findings</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-darkBg p-4 rounded-xl border border-darkBorder space-y-1">
+                                <span class="text-[10px] font-mono text-red-400 uppercase font-bold">Pain point</span>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Pickers manually typed each product ID into a spreadsheet to generate a pick list — 15 to 60 seconds per PID just to find a location for a single item in a 15-unit order.
+                                </p>
+                            </div>
+
+                            <div class="bg-darkBg p-4 rounded-xl border border-darkBorder space-y-1">
+                                <span class="text-[10px] font-mono text-red-400 uppercase font-bold">Pain point</span>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    All totes were visually identical — no system-level catch for wrong-bag or missing-item errors. Manual QC at the end was the only safeguard, requiring an extra team member.
+                                </p>
+                            </div>
+
+                            <div class="bg-darkBg p-4 rounded-xl border border-darkBorder space-y-1">
+                                <span class="text-[10px] font-mono text-amber-400 uppercase font-bold">Mental model</span>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    The team used "Section / Row / Bin" in daily conversation, but the spreadsheet used different labels (Aisle / Rack / Slot). This terminology mismatch caused daily confusion and handoff errors.
+                                </p>
+                            </div>
+
+                            <div class="bg-darkBg p-4 rounded-xl border border-darkBorder space-y-1">
+                                <span class="text-[10px] font-mono text-blue-400 uppercase font-bold">Constraint</span>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Multiple orders cannot be packed simultaneously — too high a risk of cross-contamination across ~30 exit bags. One order at a time is a deliberate operational rule, not a tech limitation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03 — WAREHOUSE STRUCTURE -->
+                <div class="space-y-4 border-t border-darkBorder pt-8">
+                    <h2 class="text-xl font-bold text-purple-400 font-mono">03 — Warehouse structure</h2>
+                    
+                    <div class="space-y-3 text-slate-300 text-xs md:text-sm leading-relaxed">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Mapping the physical space to a data model</h3>
+                        <p>
+                            Before designing screens, I mapped the physical warehouse hierarchy into a logical model the system would need to reflect. Products flow from individual Master Packs (MPs) → grouped into Case Packs (CPs) → placed in Bins (Slots) → within Racks → within Aisles (Sections). Active inventory (aisles 1–18) holds the current FIFO batch. Non-active batches live in aisles 21–28.
+                        </p>
+                        <p>
+                            A critical early decision was standardising naming. I proposed adopting <strong class="text-purple-300 font-mono">Aisle → Rack → Slot</strong> as the canonical system terminology — replacing the inconsistent "Section / Row / Bin" mix that lived across existing spreadsheets and verbal communication. This single alignment prevented naming conflicts across all four workflows and significantly reduced confusion during developer handoff.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="bg-darkBg p-4 rounded-xl border border-darkBorder text-center">
+                            <span class="block text-xl font-bold font-mono text-purple-400">MP</span>
+                            <span class="block text-xs font-semibold text-white mt-1">Master Pack</span>
+                            <span class="block text-[11px] text-slate-400 mt-0.5">Individual unit</span>
+                        </div>
+                        <div class="bg-darkBg p-4 rounded-xl border border-darkBorder text-center">
+                            <span class="block text-xl font-bold font-mono text-purple-400">CP</span>
+                            <span class="block text-xs font-semibold text-white mt-1">Case Pack</span>
+                            <span class="block text-[11px] text-slate-400 mt-0.5">Group of MPs</span>
+                        </div>
+                        <div class="bg-darkBg p-4 rounded-xl border border-darkBorder text-center">
+                            <span class="block text-xl font-bold font-mono text-purple-400">Bin</span>
+                            <span class="block text-xs font-semibold text-white mt-1">Slot in a Rack</span>
+                            <span class="block text-[11px] text-slate-400 mt-0.5">Within an Aisle</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 04 — THE FOUR WORKFLOWS -->
+                <div class="space-y-6 border-t border-darkBorder pt-8">
+                    <h2 class="text-xl font-bold text-purple-400 font-mono">04 — The four workflows</h2>
+                    
+                    <div class="space-y-2 text-slate-300 text-xs md:text-sm leading-relaxed">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Designing end-to-end, not screen-by-screen</h3>
+                        <p>
+                            Rather than designing isolated screens, I mapped full use-case flows for each workflow — starting from a user story, through a detailed use case with step-by-step logic, into a user flow diagram. This gave me and the engineering team a shared contract before any high-fidelity work began.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6 pt-2">
+                        
+                        <!-- AUDIT -->
+                        <div class="bg-darkBg p-5 rounded-xl border border-darkBorder space-y-3">
+                            <h4 class="text-base font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                                <span>Audit</span>
+                                <span class="text-xs font-mono font-normal text-slate-400">— Inventory cycle count</span>
+                            </h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Warehouse managers needed to verify physical stock against system records — one product at a time, bin by bin. The process starts with selecting a product to audit, then scanning each bin to check if Case Packs and Master Packs match what the system expects. Missing CPs get flagged and marked as "adjusted/missing" after user confirmation. A post-audit report captures everything for compliance. The key design challenge was handling mismatch states gracefully — keeping the user in control rather than blocking them.
+                            </p>
+                            <div class="p-3 bg-darkPanel rounded-lg border border-darkBorder font-mono text-[11px] text-purple-300 flex flex-wrap items-center gap-2">
+                                <span>Select product</span> <span>›</span>
+                                <span>View audit guide</span> <span>›</span>
+                                <span>Scan bin barcode</span> <span>›</span>
+                                <span>Scan CPs in bin</span> <span>›</span>
+                                <span>Report MP mismatch</span> <span>›</span>
+                                <span>Save / mark adjusted</span> <span>›</span>
+                                <span>Post-audit report</span>
+                            </div>
+                        </div>
+
+                        <!-- TRANSFER -->
+                        <div class="bg-darkBg p-5 rounded-xl border border-darkBorder space-y-3">
+                            <h4 class="text-base font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                                <span>Transfer</span>
+                                <span class="text-xs font-mono font-normal text-slate-400">— Batch inventory transfer between facilities</span>
+                            </h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Moving inventory between facilities (e.g. SF Distribution to LA Retail) requires strict regulatory compliance — the entire Metrc batch tag must be transferred, never partial. I designed a Transfer Guide panel that shows exactly which aisles, racks, and bins hold the selected SKU, with real-time bin-level progress as CPs are scanned. The Transfer button only activates when 100% of the Metrc batch is accounted for — building the compliance requirement into the interaction itself.
+                            </p>
+                            <div class="p-3 bg-darkPanel rounded-lg border border-darkBorder font-mono text-[11px] text-blue-300 flex flex-wrap items-center gap-2">
+                                <span>Select from / to facility</span> <span>›</span>
+                                <span>Select SKU + Metrc tag</span> <span>›</span>
+                                <span>Check transfer guide</span> <span>›</span>
+                                <span>Scan CPs</span> <span>›</span>
+                                <span>Scan loose MPs</span> <span>›</span>
+                                <span>Transfer (when 100%)</span>
+                            </div>
+                        </div>
+
+                        <!-- RETRIEVAL -->
+                        <div class="bg-darkBg p-5 rounded-xl border border-darkBorder space-y-3">
+                            <h4 class="text-base font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                <span>Retrieval</span>
+                                <span class="text-xs font-mono font-normal text-slate-400">— Order packing</span>
+                            </h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                This was the highest-frequency workflow — happening dozens of times per day. The current process required pickers to manually type PIDs into a separate picker spreadsheet to get bin locations. The proposed system auto-generates a FIFO-ordered pick list (aisle 1 → 18) directly from the order scan, with bin suggestions based on manufacture date, the correct bag brand and size, and barcode scanning to confirm each Master Pack as it's added. One order at a time by design — which research confirmed is the right constraint to prevent cross-bag errors.
+                            </p>
+                            <div class="p-3 bg-darkPanel rounded-lg border border-darkBorder font-mono text-[11px] text-emerald-300 flex flex-wrap items-center gap-2">
+                                <span>Scan order barcode</span> <span>›</span>
+                                <span>View FIFO picker list</span> <span>›</span>
+                                <span>Enter picker name</span> <span>›</span>
+                                <span>View correct bag</span> <span>›</span>
+                                <span>Scan MPs into bag</span> <span>›</span>
+                                <span>Save + ready for QC</span>
+                            </div>
+                        </div>
+
+                        <!-- RESTORE -->
+                        <div class="bg-darkBg p-5 rounded-xl border border-darkBorder space-y-3">
+                            <h4 class="text-base font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                                <span>Restore</span>
+                                <span class="text-xs font-mono font-normal text-slate-400">— Return Master Packs to bins</span>
+                            </h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                When full bags are pulled out, destroyed, or orders are returned, Master Packs need to go back into the correct Case Packs in the correct bins. Previously this required Google Sheets and manual coordination. The proposed flow: scan the destination CP, scan each MP into it, place the CP back in the bin, and the system updates inventory automatically — eliminating the third-party tool dependency and creating a reliable paper trail for every MP movement.
+                            </p>
+                            <div class="p-3 bg-darkPanel rounded-lg border border-darkBorder font-mono text-[11px] text-amber-300 flex flex-wrap items-center gap-2">
+                                <span>Scan destination CP</span> <span>›</span>
+                                <span>Scan MPs into CP</span> <span>›</span>
+                                <span>Place CP back in bin</span> <span>›</span>
+                                <span>System auto-updates</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 05 — KEY DESIGN DECISIONS -->
+                <div class="space-y-6 border-t border-darkBorder pt-8">
+                    <h2 class="text-xl font-bold text-purple-400 font-mono">05 — Key design decisions</h2>
+                    
+                    <div class="space-y-3 text-slate-300 text-xs md:text-sm leading-relaxed">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">Where the hard thinking happened</h3>
+                        <p>
+                            Good UX for internal tools isn't about aesthetics — it's about removing the mental load from people who are physically moving through a warehouse, often with their hands full. Every major decision was driven by that constraint.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 pt-2 text-xs md:text-sm">
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">Guided panels over free-form search</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                For both Audit and Transfer, I introduced a contextual Guide panel that shows the user exactly where in the warehouse to go — broken down by Aisle, Rack, and Bin with visual progress indicators (green = complete, partial = in progress, white = not started). This removed the need to cross-reference a spreadsheet mid-task. The panel updates live as items are scanned.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">Progressively activating actions to encode compliance</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                For Transfer, the Transfer button remains disabled until the complete Metrc batch has been scanned — a regulatory hard constraint. Rather than showing an error after the fact, the UI communicates progress continuously (a percentage bar + CP count tab) so the user always knows exactly what remains. The constraint becomes the interface.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">FIFO baked into suggestions, not enforced by memory</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                Products must be picked in First-In-First-Out order — but previously this was entirely a human memory task. I designed the pick list to surface the recommended Aisle + Rack based on manufacture date automatically, so pickers follow FIFO without needing to reason about it. Making the right path the obvious path.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">Mismatch states as first-class flows, not error dismissals</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                During audit, CP and MP mismatches aren't errors to dismiss — they're legitimate operational records that affect regulatory reporting. I designed explicit confirmation flows: the user sees a list of unscanned items, can cancel and continue scanning, or confirm and mark items as "adjusted/missing." This produces a clean audit trail rather than silent data loss — and it respects the fact that the user might have made a scan error, not an inventory error.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">Terminology as a design artefact</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                Proposing and aligning on Aisle / Rack / Slot as canonical terminology was a design decision, not just a content decision. It prevented three separate naming systems (UX docs, spreadsheets, developer database) from diverging — which would have caused bugs and user confusion that no amount of screen design could fix.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 06 — IMPACT -->
+                <div class="space-y-6 border-t border-darkBorder pt-8">
+                    <h2 class="text-xl font-bold text-purple-400 font-mono">06 — Impact</h2>
+                    
+                    <div class="space-y-3 text-slate-300 text-xs md:text-sm leading-relaxed">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">What changed after shipping</h3>
+                        <p>
+                            The module consolidated inventory operations from a 3–5 tab workflow (Warehouse Portal + multiple Google Sheets) into a single guided system. The shift from spreadsheet-based to system-recorded operations also fundamentally improved error traceability — when something went wrong, there was now a clear audit trail instead of a gap in a spreadsheet.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-darkBg p-5 rounded-xl border border-darkBorder">
+                            <span class="block text-3xl font-black text-purple-400 font-mono mb-1">1</span>
+                            <span class="block text-xs font-bold text-white mb-1">Platform replacing 3–5 simultaneous tools</span>
+                            <span class="block text-[11px] text-slate-400">For all bin operations. Reduced manual data entry errors — items recorded in system, not spreadsheets.</span>
+                        </div>
+
+                        <div class="bg-darkBg p-5 rounded-xl border border-darkBorder">
+                            <span class="block text-3xl font-black text-emerald-400 font-mono mb-1">~0</span>
+                            <span class="block text-xs font-bold text-white mb-1">Third-party tools required</span>
+                            <span class="block text-[11px] text-slate-400">For core inventory operations post-launch.</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="https://www.figma.com" target="_blank" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-purple-400 hover:text-purple-300 bg-purple-950/40 border border-purple-800/50 px-4 py-2.5 rounded-lg transition-all">
+                            <span>Final design for Dev</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 07 — REFLECTION -->
+                <div class="space-y-6 border-t border-darkBorder pt-8">
+                    <h2 class="text-xl font-bold text-purple-400 font-mono">07 — Reflection</h2>
+                    
+                    <div class="space-y-3 text-slate-300 text-xs md:text-sm leading-relaxed">
+                        <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wide">What I'd carry forward</h3>
+                    </div>
+
+                    <div class="space-y-4 text-xs md:text-sm">
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">Terminology alignment is a UX decision.</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                Standardising Aisle / Rack / Slot early prevented naming conflicts across all four workflows, design documentation, and developer handoff. It was ten minutes of alignment that saved weeks of confusion.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">Designing for constraint is designing for trust.</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                Hard gates — the Transfer button, the save confirmation for audits — aren't friction. They're the product's promise that the data is correct. Regulatory environments need those promises made visible.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">Research revealed the "why" behind rules I might have changed.</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                Without the discovery session I would likely have designed multi-order batching as a feature — which would have actively increased error rates. Observing the real workflow was the most valuable hour of the project.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">Open questions surfaced during UX saved dev rework.</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                Flagging doubts like "can we rescan an audited bin?" and "what happens to returned MPs?" during the design phase — rather than leaving them for engineering to discover — prevented late-stage surprises and helped the team align on edge cases before they became bugs.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-white">Internal tools are held to the same standard as consumer products by their users.</h4>
+                            <p class="text-slate-400 leading-relaxed">
+                                Warehouse pickers use this software for hours every day. Poor flows don't just cause frustration — they cause financial and compliance errors. That stakes clarity focused every decision.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= CASE STUDY 2: AUTOMATED CUSTOMER SUPPORT ================= -->
+        <div id="cs-acs" class="canvas-panel p-4 md:p-12 hidden max-w-5xl mx-auto">
+            <div class="bg-darkPanel rounded-2xl border border-darkBorder p-6 md:p-10 shadow-sm relative">
+                <div class="absolute top-0 left-0 bg-emerald-600 text-white font-mono text-[9px] px-2.5 py-1 font-bold uppercase tracking-wider">Layer: ACS_System</div>
+                
+                <div class="pt-4 space-y-8">
+                    <div>
+                        <span class="text-xs font-mono text-emerald-400 uppercase font-bold tracking-widest">Case Study 02</span>
+                        <h2 class="text-3xl font-black text-white mt-1 mb-3">Automated Customer Support (ACS) System</h2>
+                        <a href="https://medium.com/@deepalinagarsekar/how-we-enhanced-first-contact-resolution-by-15-via-automated-customer-support-acs-system-426d4949182a" target="_blank" class="inline-block text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 border border-emerald-800/60 bg-emerald-950/40 px-3 py-1.5 rounded-lg mb-4 transition-all">Read Case Study on Medium ↗</a>
+                        <p class="text-slate-400 text-sm max-w-3xl leading-relaxed">
+                            Designing an automated system to enhance first-contact support thresholds, streamline query volumes, and optimize live operational data streams.
+                        </p>
+                    </div>
+
+                    <div class="bg-emerald-950/20 p-6 rounded-xl border border-emerald-900/30">
+                        <h3 class="text-sm font-bold text-emerald-400 font-mono uppercase tracking-wider mb-2">Validated UX Impact Metric</h3>
+                        <p class="text-2xl font-black text-emerald-300 tracking-tight">+15% Growth in First Contact Resolution (FCR) Performance</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-white border-b pb-2 border-darkBorder">The Architecture Framework</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                            The primary design focus was engineering clean hand-off patterns between context-aware diagnostic modules and human support agents. By introducing intuitive query-grouping menus and predicting user intent early, we relieved downstream queue stress without compromising overall satisfaction.
+                        </p>
+
+                        <div class="bg-blue-950/20 p-6 rounded-xl border border-blue-900/30 text-center cursor-pointer hover:border-emerald-500 transition-all group" onclick="openImageZoom('image_8cb5e1.jpg', 'Figure 2.1: Automated Customer Support System Architecture & Flow Diagram')">
+                            <span class="text-[10px] font-mono text-blue-400 uppercase tracking-widest font-bold block mb-2">[Click image to inspect system architecture]</span>
+                            <img src="image_8cb5e1.jpg" alt="ACS System Architecture" class="w-full max-h-80 object-cover rounded-lg border border-darkBorder shadow-lg group-hover:opacity-90 transition-opacity">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CASE STUDY 3: E-COMMERCE WISHLIST ================= -->
+        <div id="cs-wishlist" class="canvas-panel p-4 md:p-12 hidden max-w-5xl mx-auto">
+            <div class="bg-darkPanel rounded-2xl border border-darkBorder p-6 md:p-10 shadow-sm relative">
+                <div class="absolute top-0 left-0 bg-amber-600 text-white font-mono text-[9px] px-2.5 py-1 font-bold uppercase tracking-wider">Layer: Wishlist_Strategy</div>
+                
+                <div class="pt-4 space-y-8">
+                    <div>
+                        <span class="text-xs font-mono text-amber-400 uppercase font-bold tracking-widest">Case Study 03</span>
+                        <h2 class="text-3xl font-black text-white mt-1 mb-3">Wishlist Ecosystem Optimization</h2>
+                        <a href="https://medium.com/@deepalinagarsekar/wishlist-case-study-d850f029f0e0" target="_blank" class="inline-block text-xs font-mono font-bold text-amber-400 hover:text-amber-300 border border-amber-800/60 bg-amber-950/40 px-3 py-1.5 rounded-lg mb-4 transition-all">Read Full Article on Medium ↗</a>
+                        <p class="text-slate-400 text-sm max-w-3xl leading-relaxed">
+                            Converting casual item-bookmark drop-offs into actionable, high-intent discovery funnels within modern e-commerce platforms.
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-950/20 border border-amber-900/30 p-5 rounded-xl space-y-2">
+                        <h3 class="text-sm font-bold text-amber-400 font-mono uppercase tracking-wider">Introduction</h3>
+                        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+                            A wishlist isn’t just the heart icon on an online store; it’s crucial for businesses. It’s more than a fancy button – it influences how companies earn money and make decisions. Wishlists simplify user experience, aid in selling products, and assist in planning inventory.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-white border-b pb-2 border-darkBorder">UX Execution Realization</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                            Rather than leaving the wishlist layer as a passive item bin, we re-imagined the layout as an organized collection dashboard. Users can sort items cleanly, track live pricing variations, and share collaborative registries without dealing with clunky navigation loops.
+                        </p>
+                        
+                        <div class="bg-purple-950/20 p-6 rounded-xl border border-purple-900/30 text-center cursor-pointer hover:border-amber-500 transition-all group" onclick="openImageZoom('image_8cb5e1.jpg', 'Figure 3.1: Wishlist Interaction Strategy & Flow Diagram')">
+                            <span class="text-[10px] font-mono text-purple-400 uppercase tracking-widest font-bold block mb-2">[Click image to inspect wishlist design]</span>
+                            <img src="image_8cb5e1.jpg" alt="Wishlist Strategy" class="w-full max-h-80 object-cover rounded-lg border border-darkBorder shadow-lg group-hover:opacity-90 transition-opacity">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= EXPERIENCE MATRIX (FULL RESUME DATA INTEGRATED) ================= -->
+        <div id="experience-view" class="canvas-panel p-4 md:p-12 hidden max-w-5xl mx-auto">
+            <div class="bg-darkPanel rounded-2xl border border-darkBorder p-6 md:p-10 shadow-sm relative">
+                <div class="absolute top-0 left-0 bg-white text-slate-900 font-mono text-[9px] px-2.5 py-1 font-bold uppercase tracking-wider">Layer: Career_Timeline</div>
+                
+                <div class="pt-4 space-y-10">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-tight">Professional Experience Matrix</h2>
+                        <p class="text-xs text-slate-400 mt-1">6+ Years across B2B, SaaS, Healthcare, Telecommunication Governance, and Logistics</p>
+                    </div>
+
+                    <!-- RESUME CAREER ROLES -->
+                    <div class="space-y-8 border-l border-darkBorder pl-6 ml-2">
+                        
+                        <!-- ROLE 1: VIRTUSA -->
+                        <div class="relative">
+                            <div class="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-purple-400 ring-4 ring-purple-950"></div>
+                            <span class="text-[10px] font-mono text-purple-400 font-bold block uppercase tracking-wider">March 2024 - Present</span>
+                            <h3 class="text-lg font-bold text-white mt-0.5">Consultant (Senior UX Researcher / Product Designer)</h3>
+                            <span class="text-xs font-mono text-purple-300 font-semibold block mb-3">@ Virtusa</span>
+                            
+                            <ul class="text-xs text-slate-400 space-y-2 list-disc list-inside leading-relaxed">
+                                <li>Collaborated in creating a unified end-to-end compliance governance and assurance system for the Pan Telecommunication group, improving usage and security concerns. Policy portals and recording and sharing data internally were made easy.</li>
+                                <li>Contributed to the unification of 12 regional public and private healthcare websites into a single, content-driven platform using Adobe Experience Manager (AEM).</li>
+                                <li>Led the discovery and definition phases, conducting competitive analysis, market analysis, and content audits to inform strategic decisions. Designed user personas, empathy maps, and customer journey workflows.</li>
+                                <li>Actively partnered with Product Managers, Engineers, and Solution Designers throughout the product life-cycle, facilitating project alignment meetings and ensuring design feasibility.</li>
+                                <li>Managed stakeholder relationships across cross-functional teams including SMEs, product owners, and senior leadership; gathered requirements and synthesized findings to drive consensus.</li>
+                                <li>Contributed to and maintained a shared design framework, ensuring consistency across components and speeding up design-to-development handoff in an agile environment.</li>
+                            </ul>
+                        </div>
+
+                        <!-- ROLE 2: GRASSDOOR -->
+                        <div class="relative">
+                            <div class="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-slate-500"></div>
+                            <span class="text-[10px] font-mono text-slate-400 font-bold block uppercase tracking-wider">July 2019 - November 2023 (4 Years 4 Months)</span>
+                            <h3 class="text-lg font-bold text-white mt-0.5">User Experience Designer & Analyst</h3>
+                            <span class="text-xs font-mono text-slate-300 font-semibold block mb-3">@ Grassdoor Logistic Technologies Pvt Ltd</span>
+                            
+                            <ul class="text-xs text-slate-400 space-y-2 list-disc list-inside leading-relaxed">
+                                <li>Collaborated with cross-functional teams while directly engaging with the CTO, directors, and senior stakeholders to align design strategies and present findings.</li>
+                                <li>Led the end-to-end redesign of an eCommerce admin portal, driving digital transformation that reduced task completion time by 20-40% and warehouse worker efforts by 35-40%.</li>
+                                <li>Leveraged data from tools like Metabase, Hotjar, and Google Analytics to influence inventory decisions and personalize the customer portal with AI. This led to 5 new projects, boosted retention by 30%, and cut drop-off rates by 50%.</li>
+                                <li>Designed and developed user experiences for search optimization, wishlist, inventory management, procurement, and driver time management modules.</li>
+                                <li>Supported the UX Director by preparing data-driven insights for investor meetings while maintaining strict data confidentiality.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- SKILLS & TOOLS GRID FROM RESUME -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-darkBorder">
+                        <div class="bg-darkBg p-5 rounded-xl border border-darkBorder space-y-3">
+                            <h4 class="text-xs font-bold text-purple-400 font-mono uppercase tracking-wider border-b border-darkBorder pb-2">Analytic & UX Research Skills</h4>
+                            <div class="flex flex-wrap gap-1.5 text-[11px] text-slate-300 font-mono">
+                                <span class="bg-slate-800 px-2 py-1 rounded">User Research</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Information Architecture</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">User Stories</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Heuristic Evaluation</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Prototype Testing</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">UX Strategy</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Service Design</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Competitor Analysis</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Surveys</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Personas</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Heat maps & Analytics</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Customer Journey Mapping</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Design Systems</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-darkBg p-5 rounded-xl border border-darkBorder space-y-3">
+                            <h4 class="text-xs font-bold text-blue-400 font-mono uppercase tracking-wider border-b border-darkBorder pb-2">Tools & Technology</h4>
+                            <div class="flex flex-wrap gap-1.5 text-[11px] text-slate-300 font-mono">
+                                <span class="bg-slate-800 px-2 py-1 rounded">Figma</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Adobe XD</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Hotjar</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Metabase</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Segment</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Miro</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Google Analytics</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Algolia</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Slack</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Notion</span>
+                                <span class="bg-slate-800 px-2 py-1 rounded">Figjam</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-darkBg p-5 rounded-xl border border-darkBorder space-y-3">
+                            <h4 class="text-xs font-bold text-emerald-400 font-mono uppercase tracking-wider border-b border-darkBorder pb-2">Education</h4>
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <span class="font-bold text-white block">Hybrid PGDM</span>
+                                    <span class="text-slate-400 text-[11px]">Goa Institute of Management</span>
+                                    <span class="text-slate-500 font-mono block text-[10px]">Feb 2026 - Present</span>
+                                </div>
+                                <div class="border-t border-darkBorder pt-2">
+                                    <span class="font-bold text-white block">Bachelor of Engineering</span>
+                                    <span class="text-slate-400 text-[11px]">Goa University</span>
+                                    <span class="text-slate-500 font-mono block text-[10px]">Aug 2015 - July 2019 / Shiroda, Goa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CONTACT CHANNELS (LINKEDIN, PHONE, EMAIL) ================= -->
+        <div id="contact-view" class="canvas-panel p-4 md:p-12 hidden max-w-5xl mx-auto">
+            <div class="bg-darkPanel rounded-2xl border border-darkBorder p-6 md:p-10 shadow-sm relative">
+                <div class="absolute top-0 left-0 bg-indigo-600 text-white font-mono text-[9px] px-2.5 py-1 font-bold uppercase tracking-wider">Layer: Contact_Gateway</div>
+                
+                <div class="pt-6 text-center max-w-xl mx-auto space-y-6">
+                    <h2 class="text-3xl font-black text-white tracking-tight">Let's build clear, optimized digital tools together.</h2>
+                    <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                        I am open to discussions regarding senior product design leadership positions, complex enterprise platform architectures, and UX strategic initiatives.
+                    </p>
+                    
+                    <!-- UPDATED DIRECT CONTACT LINK TILES -->
+                    <div class="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
+                        <a href="https://linkedin.com" target="_blank" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/40 p-4 rounded-xl transition-all flex flex-col items-center justify-center gap-1">
+                            <span class="font-bold">LinkedIn Profile</span>
+                            <span class="text-[10px] text-blue-400">linkedin.com ↗</span>
+                        </a>
+                        <a href="tel:9421117629" class="bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/40 p-4 rounded-xl transition-all flex flex-col items-center justify-center gap-1">
+                            <span class="font-bold">Phone Contact</span>
+                            <span class="text-[10px] text-purple-400">+91 9421117629</span>
+                        </a>
+                        <a href="mailto:dnagarsekar@gmail.com" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 p-4 rounded-xl transition-all flex flex-col items-center justify-center gap-1">
+                            <span class="font-bold">Direct Email</span>
+                            <span class="text-[10px] text-emerald-400">dnagarsekar@gmail.com</span>
+                        </a>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="https://www.behance.net/gallery/222540225/Portfolio" target="_blank" class="inline-block border border-slate-700 hover:border-purple-500 text-slate-300 font-semibold text-xs px-6 py-3 rounded-xl transition-all">
+                            Explore Behance Case Collection ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FLOATING INTERACTIVE FIGMA TOOLBAR (BOTTOM) -->
+    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-darkPanel/90 border border-darkBorder px-3 py-2 rounded-xl shadow-2xl backdrop-blur-md flex items-center space-x-1.5 z-40 select-none">
+        <button onclick="setCursorMode('pointer')" id="tool-pointer" class="tool-btn p-2 rounded-lg bg-purple-950 text-purple-300 transition-all" title="Move Tool">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M7 2l12 11.2-5.3.6 3.5 6.2-2.5 1.4-3.5-6.2-4.2 4.2z"/></svg>
+        </button>
+        <button onclick="setCursorMode('hand')" id="tool-hand" class="tool-btn p-2 rounded-lg text-slate-400 hover:bg-slate-800 transition-all" title="Hand Pan Tool">
+            <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M14 10V4.5a1.5 1.5 0 1 0-3 0V11M11 11V3.5a1.5 1.5 0 1 0-3 0V12M8 12V5.5a1.5 1.5 0 1 0-3 0v10.5a7 7 0 0 0 14 0V9.5a1.5 1.5 0 1 0-3 0V11"/></svg>
+        </button>
+        <div class="h-4 w-px bg-slate-800 mx-1"></div>
+        <button onclick="switchView('home-view')" class="text-[11px] font-mono font-medium px-2 py-1 rounded hover:bg-slate-800 text-slate-300">About</button>
+        <button onclick="switchView('cs-habitat')" class="text-[11px] font-mono font-bold px-2 py-1 rounded hover:bg-slate-800 text-blue-400">Terra</button>
+        <button onclick="switchView('cs-bin')" class="text-[11px] font-mono font-medium px-2 py-1 rounded hover:bg-slate-800 text-slate-300">CS_1</button>
+        <button onclick="switchView('cs-acs')" class="text-[11px] font-mono font-medium px-2 py-1 rounded hover:bg-slate-800 text-slate-300">CS_2</button>
+        <button onclick="switchView('cs-wishlist')" class="text-[11px] font-mono font-medium px-2 py-1 rounded hover:bg-slate-800 text-slate-300">CS_3</button>
+    </div>
+
+    <!-- UI ROUTING & LIGHTBOX SCRIPT -->
+    <script>
+        // DYNAMIC WORKSPACE VIEW SWITCHER
+        function switchView(viewId) {
+            const views = document.querySelectorAll('.canvas-panel');
+            views.forEach(v => { v.classList.add('hidden'); v.classList.remove('block'); });
+
+            const targetView = document.getElementById(viewId);
+            if (targetView) {
+                targetView.classList.remove('hidden');
+                targetView.classList.add('block');
+            }
+
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.className = "nav-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs text-slate-400 hover:bg-slate-800/60 hover:text-white transition-all text-left";
+            });
+
+            const currentActiveBtn = document.getElementById('btn-' + viewId);
+            if (currentActiveBtn) {
+                currentActiveBtn.className = "nav-btn w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-purple-400 bg-purple-950/40 border border-purple-900/40 transition-all text-left";
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // TOOLBAR CURSOR MODAL SIMULATION INTERACTION
+        function setCursorMode(mode) {
+            const btnPointer = document.getElementById('tool-pointer');
+            const btnHand = document.getElementById('tool-hand');
+            
+            if (mode === 'pointer') {
+                document.body.style.cursor = 'default';
+                btnPointer.className = "tool-btn p-2 rounded-lg bg-purple-950 text-purple-300 transition-all";
+                btnHand.className = "tool-btn p-2 rounded-lg text-slate-400 hover:bg-slate-800 transition-all";
+            } else {
+                document.body.style.cursor = 'grab';
+                btnHand.className = "tool-btn p-2 rounded-lg bg-purple-950 text-purple-300 transition-all";
+                btnPointer.className = "tool-btn p-2 rounded-lg text-slate-400 hover:bg-slate-800 transition-all";
+            }
+        }
+
+        // IMAGE LIGHTBOX ZOOM FOR REAL ARTIFACTS
+        function openImageZoom(imgSrc, caption) {
+            const lightbox = document.getElementById('lightbox');
+            const container = document.getElementById('lightbox-content');
+            lightbox.classList.remove('hidden');
+            container.innerHTML = `
+                <div class="flex flex-col items-center">
+                    <img src="${imgSrc}" class="max-w-full max-h-[75vh] object-contain rounded-lg border border-darkBorder shadow-2xl">
+                    <p class="text-xs font-mono text-slate-400 mt-4 text-center">${caption}</p>
+                </div>
+            `;
+        }
+
+        // ARTIFACT LIGHTBOX SIMULATOR FOR CONCEPT CARDS
+        function openZoom(artifactId) {
+            const lightbox = document.getElementById('lightbox');
+            const container = document.getElementById('lightbox-content');
+            lightbox.classList.remove('hidden');
+            
+            let htmlData = '';
+            if (artifactId === 'acs-artifact') {
+                htmlData = `
+                    <div class="text-left font-mono text-xs text-slate-300 space-y-4 max-w-xl p-4">
+                        <div class="text-emerald-400 font-bold border-b border-darkBorder pb-2 text-sm">✦ CUSTOMER ROUTING PATTERN METRIC VIEW</div>
+                        <p><strong>Intelligent Request Ingestion:</strong> Parsing real-time intent telemetry data tags ahead of manual ticketing procedures.</p>
+                        <p><strong>Result:</strong> Deflected queue saturation layers by exactly 15% via context-aware resolution paths.</p>
+                    </div>`;
+            } else {
+                htmlData = `
+                    <div class="text-left font-mono text-xs text-slate-300 space-y-4 max-w-xl p-4">
+                        <div class="text-purple-400 font-bold border-b border-darkBorder pb-2 text-sm">✦ E-COMMERCE CONVERSION PIPELINE ATOM</div>
+                        <p>Transforming stagnant, static product bookmark frames into interactive, notification-responsive personal collection units.</p>
+                    </div>`;
+            }
+            container.innerHTML = htmlData;
+        }
+
+        function closeZoom() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
